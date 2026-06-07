@@ -5,8 +5,8 @@ class CreateUploadedFiles < ActiveRecord::Migration[8.1]
       t.string :content_type, null: false
       t.integer :file_size, null: false
       t.string :upload_uuid, null: false
-      t.string :url, null: false
       t.datetime :expires_at, null: false
+      t.integer :share_type, null: false, default: 0
       t.timestamps
     end
   end

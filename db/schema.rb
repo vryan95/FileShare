@@ -45,9 +45,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_184948) do
     t.datetime "expires_at", null: false
     t.integer "file_size", null: false
     t.string "filename", null: false
+    t.integer "share_type", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "upload_uuid", null: false
-    t.string "url", null: false
   end
 
   create_table "users", force: :cascade do |t|
