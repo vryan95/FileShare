@@ -1,0 +1,15 @@
+// Light theme colors
+$primary:       #286583;
+$secondary:     #6c757d;
+$success:       #198754;
+$info:          #0dcaf0;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #EAEBEC;
+$dark:          #212529;
+$dark-blue: #121325;
+
+$grid-color: lighten(#3d4855, 69%);
+$pagination-hover: darken($grid-color, 5%);
+$table-header-bg-color: lighten(#3d4855, 69%);
+$table-footer-bg-color: lighten(#3d4855, 69%);
