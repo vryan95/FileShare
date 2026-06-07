@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
+  layout "signed_out"
 
   def new
     # Login page - will have link to trigger Entra ID auth
