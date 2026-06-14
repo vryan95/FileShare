@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "files#index"
+  root "uploaded_files#index"
 
   # Authentication routes
   get "/login", to: "sessions#new", as: :login
@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   get "/auth/failure", to: "sessions#failure"
   delete "/logout", to: "sessions#destroy", as: :logout
 
-  resources :files
+  resources :uploaded_files
 end

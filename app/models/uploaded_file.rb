@@ -5,7 +5,7 @@ class UploadedFile < ApplicationRecord
 
   before_create :generate_uuid
 
-  enum share_type: { private: 0, internal: 1, public: 2 }
+  enum :share_type, { private: 0, internal: 1, public: 2 }, prefix: true
 
   private
 

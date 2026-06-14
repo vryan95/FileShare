@@ -1,0 +1,7 @@
+= title t('.home')
+
+= "this is the home page"
+
+= form_with model: @file do |form|
+  = form.file_field :file, direct_upload: true
+	= form.submit
