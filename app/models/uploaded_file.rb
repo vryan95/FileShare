@@ -1,7 +1,7 @@
 class UploadedFile < ApplicationRecord
   has_one_attached :file
 
-  validates :file, presence: true
+  # validates :file, presence: true
 
   before_create :generate_uuid
 

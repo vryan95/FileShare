@@ -2,7 +2,8 @@ class UploadedFilesController < ApplicationController
   before_action :require_login, except: [ :show ]
 
   def index
-    @file = UploadedFile.new
+    @new_file = UploadedFile.new
+    @uploaded_files = UploadedFile.all
   end
 
   def show

@@ -1,0 +1,4 @@
+- root_id = @id || "card_deck_root"
+.card-deck.row.pb-3 class=@klass data-reflex-root=("##{root_id}" if @reflex_root) id=@id data=@data
+  - cards.each do |card|
+    == render card

@@ -1,0 +1,79 @@
+.card {
+  box-shadow: 0 10px 40px 0 rgba(18,106,211,.07), 0 2px 9px 0 rgba(18,106,211,.06);
+  border: none;
+  transition: all .3s ease;
+}
+
+.card-header {
+  padding: 15px 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(234,243,253,.9);
+  background-color: transparent;
+  min-height: 45px;
+  font-weight: 300;
+}
+
+.card {
+  .card-title {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    margin: 0;
+  }
+
+  .card-header {
+    padding: 15px 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(234,243,253,.9);
+    background-color: transparent;
+    min-height: 45px;
+    font-weight: 300;
+    font-size: 1rem;
+  }
+
+  .card-footer {
+    background-color: #f0f6ff !important;
+    border-top: 1px solid rgba(234,243,253,.7);
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+
+  &.card-tabs {
+    .card-header {
+      padding: 0;
+    }
+
+    .tab-content {
+      display: flex;
+
+      & > .tab-pane {
+        display: block;
+        visibility: hidden;
+        margin-right: -100%;
+        width: 100%;
+      }
+
+      & > .active {
+        visibility: visible;
+      }
+    }
+  }
+
+  .nav-tabs:not(.modal-tabs) {
+    border-bottom: 0;
+
+    .nav-link {
+      border: 0;
+      &.active {
+        border-bottom: 2px solid $dark-blue;
+      }
+    }
+
+    li a {
+      font-size: .875rem;
+      height: 60px;
+      padding: 1.4rem 1.5rem 1.3rem;
+    }
+  }
+}

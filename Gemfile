@@ -47,6 +47,7 @@ gem "omniauth-rails_csrf_protection"
 gem "omniauth-entra-id"
 
 gem "slim-rails"
+gem "view_component"
 
 group :development, :test do
   # Load environment variables from .env file

@@ -1,7 +1,32 @@
 = title t('.home')
 
-= "this is the home page"
-
-= form_with model: @file do |form|
-  = form.file_field :file, direct_upload: true
-	= form.submit
+= component :card_deck, reflex_root: true, id: "uploaded_files_root" do |c|
+  /= c.with_card empty: @uploaded_files.empty? do |card|
+  = c.with_card tabs: [{id: "my_files_tab", text: t('.my_files')}, {id: "shared_files_tab", text: t('.shared_files')}] do |card|
+    = card.with_header
+      = "upload button here"
+    = card.with_body do
+      .tab-content
+        #my_files_tab.tab-pane.fadeIn.show.active role="tabpanel"
+          .table-responsive
+            table.table 
+              thead
+                tr
+                  th = t('.filename')
+                  th = t('.size')
+                  th = t('.share_type')
+                  th = t('.expires_at')
+                  th.text-center = t('.actions')
+              tbody
+                - @uploaded_files.each do |file|
+                  tr
+                    td = file.filename
+                    td = file.file_size
+                    td = t("share_types.#{file.share_type}")
+                    td = l(file.expires_at, format: :short)
+                    td.text-center
+                      = link_to icon('eye'), uploaded_file_path(file), title: t('.view'), class: "btn btn-sm btn-outline-primary"
+                      = link_to icon('trash'), uploaded_file_path(file), method: :delete, data: { confirm: t('.confirm_delete') }, title: t('.delete'), class: "btn btn-sm btn-outline-danger"
+        #shared_files_tab.tab-pane.fadeIn role="tabpanel"
+          = "hello shared"
+                  

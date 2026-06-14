@@ -1,0 +1,36 @@
+- if @empty
+  = render NoRecordsComponent.new
+- else
+  div class="card-component px-2 #{@klass} pb-2" data=@data id=@id
+    .card class="#{@tabs ? "card-tabs" : ""}"
+      - if header?
+        .card-header
+          - if @tabs
+            .card-title = header
+            ul.nav.nav-tabs.primary-tabs.justify-content-end role="tablist"
+              - @tabs.each_with_index do |tab, index|
+                li.nav-item role="presentation"
+                  a.nav-link class="#{index == 0 ? "active" : ""}" href="##{tab[:id]}" data-bs-toggle="tab" aria-controls=tab[:id] role="tab" aria-expanded="true" = tab[:text]
+          - else
+            = header
+            - if header_actions
+              .float-end
+                =raw header_actions
+            - if header_secondary
+              .float-end
+                =raw header_secondary
+      .card-body
+        - if @formats.any?
+          .download-formats
+            - if @formats.include?(:xls)
+              = link_to helpers.icon('file-earmark-excel'), helpers.change_format("xls"), title: t('download_as.xls')
+            - if @formats.include?(:txt)
+              = link_to helpers.icon('file-earmark-text'), helpers.change_format("txt"), title: t('download_as.txt')
+            - if @formats.include?(:pdf)
+              = link_to helpers.icon('file-earmark-pdf'), helpers.change_format("pdf"), title: t('download_as.pdf')
+            - if @formats.include?(:xml)
+              = link_to helpers.icon('file-earmark-code'), helpers.change_format("xml"), title: t('download_as.xml')
+        =raw body
+      - if footer
+        .card-footer class="bg-light #{footer_class}"
+          =raw footer
