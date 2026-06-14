@@ -29,3 +29,10 @@
 
 en:
   hello: "Hello world"
+  general:
+    sign_out: "Sign out"
+    theme:
+      switch_to_dark: "Dark"
+      switch_to_light: "Light"
+      updated: "Theme updated."
+      invalid: "Invalid theme selection."

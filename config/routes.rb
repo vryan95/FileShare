@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "/auth/:provider/callback", to: "sessions#create"
   get "/auth/failure", to: "sessions#failure"
   delete "/logout", to: "sessions#destroy", as: :logout
+  patch "/theme_preference", to: "theme_preferences#update", as: :theme_preference
 
   resources :uploaded_files
 end

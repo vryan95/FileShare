@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :theme_preference, :next_theme_preference
 
   private
 
@@ -15,6 +15,14 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     current_user.present?
+  end
+
+  def theme_preference
+    current_user&.theme_preference.presence_in(User::THEMES) || "light"
+  end
+
+  def next_theme_preference
+    theme_preference == "dark" ? "light" : "dark"
   end
 
   def require_login

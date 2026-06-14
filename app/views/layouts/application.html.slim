@@ -1,5 +1,5 @@
 doctype html
-html
+html data-bs-theme=theme_preference
   head
     title= content_for(:title) || "File Share"
     meta name="viewport" content="width=device-width,initial-scale=1"
@@ -23,16 +23,27 @@ html
 
   body data-locale=I18n.locale id=(yield(:body_id) if content_for?(:body_id)) class=(yield(:body_class) if content_for?(:body_class)) data-env=Rails.env
     main.px-0
-      nav.navbar.navbar-expand.navbar-light.sticky-top.flex-md-nowrap.p-2
+      nav.navbar.navbar-expand.sticky-top.flex-md-nowrap.p-2.border-bottom.bg-body-tertiary
         .container-fluid
           .d-none.d-md-block
             h1 = "FileShare"
 
-          ul.navbar-nav.me-0.mb-2.mb-lg-0
+          ul.navbar-nav.me-0.mb-2.mb-lg-0.align-items-center
             li.nav-item.dropdown 
               a.nav-link.dropdown-toggle href="#" role="button" data-bs-toggle="dropdown"
                 => current_user.name
               ul.dropdown-menu.dropdown-menu-start.m-0 
+                li
+                  = button_to theme_preference_path, method: :patch, params: { theme: next_theme_preference }, class: "dropdown-item", form: { data: { turbo: false } } do
+                    - if theme_preference == "dark"
+                      = icon("sun-fill")
+                      ' &nbsp;
+                      = t("general.theme.switch_to_light")
+                    - else
+                      = icon("moon-stars-fill")
+                      ' &nbsp;
+                      = t("general.theme.switch_to_dark")
+                li.dropdown-divider
                 li
                   = button_to logout_path, method: :delete, class: 'dropdown-item' do
                     = icon('box-arrow-right')

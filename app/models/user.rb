@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  THEMES = %w[light dark].freeze
+
+  validates :theme_preference, inclusion: { in: THEMES }
   validates :provider, :uid, :email, presence: true
   validates :uid, uniqueness: { scope: :provider }
 
