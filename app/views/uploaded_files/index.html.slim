@@ -2,6 +2,9 @@
 
 = component :card_deck, reflex_root: true, id: "uploaded_files_root" do |c|
   /= c.with_card empty: @uploaded_files.empty? do |card|
+  = c.with_card do |card|
+    = card.with_body
+      = component :upload_dropzone, uploaded_file: @new_file
   = c.with_card tabs: [{id: "my_files_tab", text: t('.my_files')}, {id: "shared_files_tab", text: t('.shared_files')}] do |card|
     = card.with_header
       = "upload button here"
@@ -29,4 +32,3 @@
                       = link_to icon('trash'), uploaded_file_path(file), method: :delete, data: { confirm: t('.confirm_delete') }, title: t('.delete'), class: "btn btn-sm btn-outline-danger"
         #shared_files_tab.tab-pane.fadeIn role="tabpanel"
           = "hello shared"
-                  

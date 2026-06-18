@@ -1,0 +1,77 @@
+.upload-dropzone-form {
+  width: min(100%, 34rem);
+}
+
+.upload-dropzone {
+  align-items: center;
+  border: 1px dashed var(--bs-border-color);
+  border-radius: .5rem;
+  cursor: pointer;
+  display: flex;
+  gap: .75rem;
+  padding: .85rem 1rem;
+  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.upload-dropzone:hover,
+.upload-dropzone:focus-visible,
+.upload-dropzone.is-dragover {
+  background-color: rgba(var(--bs-primary-rgb), .06);
+  border-color: rgba(var(--bs-primary-rgb), .8);
+  box-shadow: 0 0 0 .2rem rgba(var(--bs-primary-rgb), .1);
+}
+
+.upload-dropzone.is-invalid {
+  border-color: var(--bs-danger);
+}
+
+.upload-dropzone__icon {
+  align-items: center;
+  background-color: rgba(var(--bs-primary-rgb), .12);
+  border-radius: .5rem;
+  color: var(--bs-primary);
+  display: flex;
+  flex: 0 0 2.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  width: 2.5rem;
+}
+
+.upload-dropzone__icon-svg {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
+.upload-dropzone__body {
+  min-width: 0;
+}
+
+.upload-dropzone__title {
+  font-size: .95rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.upload-dropzone__hint,
+.upload-dropzone__filename {
+  font-size: .8rem;
+  line-height: 1.25;
+}
+
+.upload-dropzone__hint {
+  color: var(--bs-secondary-color);
+}
+
+.upload-dropzone__filename {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-dropzone__progress {
+  margin-top: .5rem;
+}
+
+.upload-dropzone__progress .progress {
+  height: .5rem;
+}

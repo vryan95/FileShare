@@ -1,7 +1,8 @@
 class UploadedFile < ApplicationRecord
   has_one_attached :file
 
-  # validates :file, presence: true
+  validates :file, presence: true
+  validates :filename, :content_type, :file_size, :expires_at, presence: true
 
   before_create :generate_uuid
 
@@ -10,6 +11,6 @@ class UploadedFile < ApplicationRecord
   private
 
   def generate_uuid
-    self.upload_uuid = SecureRandom.uuid
+    self.upload_uuid ||= SecureRandom.uuid
   end
 end

@@ -1,1 +1,33 @@
-div Add UploadDropzone template here
+= form_with model: @uploaded_file,
+            url: uploaded_files_path,
+            html: { class: "upload-dropzone-form" },
+            data: { controller: "upload-dropzone",
+                    upload_dropzone_ready_text_value: t(".ready"),
+                    upload_dropzone_selected_text_value: t(".selected"),
+                    upload_dropzone_uploading_text_value: t(".uploading"),
+                    upload_dropzone_complete_text_value: t(".complete"),
+                    upload_dropzone_error_text_value: t(".error"),
+                    action: "direct-upload:initialize->upload-dropzone#initializeUpload direct-upload:start->upload-dropzone#start direct-upload:progress->upload-dropzone#progress direct-upload:error->upload-dropzone#error direct-upload:end->upload-dropzone#end" } do |form|
+  = form.label :file,
+               class: "upload-dropzone",
+               role: "button",
+               tabindex: "0",
+               data: { upload_dropzone_target: "dropzone",
+                       action: "keydown.enter->upload-dropzone#browse keydown.space->upload-dropzone#browse dragover->upload-dropzone#dragover dragleave->upload-dropzone#dragleave drop->upload-dropzone#drop" } do
+    = form.file_field :file,
+                      direct_upload: true,
+                      class: "visually-hidden",
+                      data: { upload_dropzone_target: "input", action: "change->upload-dropzone#selected" },
+                      accept: "*/*"
+    .upload-dropzone__icon
+      = helpers.icon("cloud-arrow-up", class: "upload-dropzone__icon-svg")
+    .upload-dropzone__body
+      .upload-dropzone__title = t(".title")
+      .upload-dropzone__hint data-upload-dropzone-target="status" = t(".ready")
+      .upload-dropzone__filename data-upload-dropzone-target="filename"
+
+  .upload-dropzone__progress.d-none data-upload-dropzone-target="progress"
+    .progress role="progressbar" aria-label=t(".progress") aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+      .progress-bar data-upload-dropzone-target="progressBar" style="width: 0%"
+
+  = form.submit t(".submit"), class: "btn btn-sm btn-primary d-none", data: { upload_dropzone_target: "submit" }, disabled: true

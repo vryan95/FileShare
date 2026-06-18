@@ -36,3 +36,16 @@ en:
       switch_to_light: "Light"
       updated: "Theme updated."
       invalid: "Invalid theme selection."
+  upload_dropzone_component:
+    title: "Drop a file to upload"
+    ready: "Choose a file or drag it here."
+    selected: "Preparing upload..."
+    uploading: "Uploading..."
+    complete: "Upload complete. Saving..."
+    error: "Upload failed."
+    progress: "Upload progress"
+    submit: "Upload"
+  uploaded_files:
+    create:
+      created: "File uploaded."
+      missing_file: "Choose a file to upload."
