@@ -1,13 +1,11 @@
 = title t('.home')
 
 = component :card_deck, reflex_root: true, id: "uploaded_files_root" do |c|
-  /= c.with_card empty: @uploaded_files.empty? do |card|
-  = c.with_card do |card|
-    = card.with_body
-      = component :upload_dropzone, uploaded_file: @new_file
   = c.with_card tabs: [{id: "my_files_tab", text: t('.my_files')}, {id: "shared_files_tab", text: t('.shared_files')}] do |card|
     = card.with_header
-      = "upload button here"
+      = button_tag type: "button", class: "btn btn-sm btn-primary", data: { bs_toggle: "modal", bs_target: "#uploadFileModal" } do
+        = icon("cloud-arrow-up")
+        span.ms-1 = t(".upload")
     = card.with_body do
       .tab-content
         #my_files_tab.tab-pane.fadeIn.show.active role="tabpanel"
@@ -26,9 +24,18 @@
                     td = file.filename
                     td = file.file_size
                     td = t("share_types.#{file.share_type}")
-                    td = l(file.expires_at, format: :short)
+                    td = l(file.expires_at.to_date, format: :slash)
                     td.text-center
                       = link_to icon('eye'), uploaded_file_path(file), title: t('.view'), class: "btn btn-sm btn-outline-primary"
                       = link_to icon('trash'), uploaded_file_path(file), method: :delete, data: { confirm: t('.confirm_delete') }, title: t('.delete'), class: "btn btn-sm btn-outline-danger"
         #shared_files_tab.tab-pane.fadeIn role="tabpanel"
           = "hello shared"
+
+#uploadFileModal.modal.fade tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true"
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        h2#uploadFileModalLabel.modal-title.fs-5 = t(".upload_modal_title")
+        button.btn-close type="button" data-bs-dismiss="modal" aria-label=t(".close")
+      .modal-body
+        = component :upload_dropzone, uploaded_file: @new_file

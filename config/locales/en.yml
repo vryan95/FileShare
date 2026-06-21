@@ -29,6 +29,9 @@
 
 en:
   hello: "Hello world"
+  date:
+    formats:
+      slash: "%d/%m/%Y"
   general:
     sign_out: "Sign out"
     theme:
@@ -37,15 +40,37 @@ en:
       updated: "Theme updated."
       invalid: "Invalid theme selection."
   upload_dropzone_component:
+    expires_at: "Expires at"
+    expires_at_placeholder: "dd/MM/yyyy"
     title: "Drop a file to upload"
     ready: "Choose a file or drag it here."
+    share_type: "Share type"
     selected: "Preparing upload..."
     uploading: "Uploading..."
     complete: "Upload complete. Saving..."
     error: "Upload failed."
     progress: "Upload progress"
     submit: "Upload"
+  share_types:
+    private: "Private"
+    internal: "Internal"
+    public: "Public"
   uploaded_files:
+    index:
+      actions: "Actions"
+      close: "Close"
+      confirm_delete: "Delete this file?"
+      expires_at: "Expires at"
+      filename: "Filename"
+      home: "Files"
+      my_files: "My files"
+      shared_files: "Shared files"
+      share_type: "Share type"
+      size: "Size"
+      upload: "Upload"
+      upload_modal_title: "Upload file"
+      view: "View"
+      delete: "Delete"
     create:
       created: "File uploaded."
       missing_file: "Choose a file to upload."

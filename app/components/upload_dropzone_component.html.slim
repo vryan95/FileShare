@@ -8,6 +8,20 @@
                     upload_dropzone_complete_text_value: t(".complete"),
                     upload_dropzone_error_text_value: t(".error"),
                     action: "direct-upload:initialize->upload-dropzone#initializeUpload direct-upload:start->upload-dropzone#start direct-upload:progress->upload-dropzone#progress direct-upload:error->upload-dropzone#error direct-upload:end->upload-dropzone#end" } do |form|
+  .row.g-3
+    .col-12.col-sm-6
+      = form.label :share_type, t(".share_type"), class: "form-label"
+      = form.select :share_type, share_type_options, {}, class: "form-select"
+    .col-12.col-sm-6
+      = form.label :expires_at, t(".expires_at"), class: "form-label"
+      = form.text_field :expires_at,
+                        value: expires_at_value,
+                        class: "form-control",
+                        placeholder: t(".expires_at_placeholder"),
+                        autocomplete: "off",
+                        inputmode: "numeric",
+                        data: { controller: "date-picker" }
+
   = form.label :file,
                class: "upload-dropzone",
                role: "button",
