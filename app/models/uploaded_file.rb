@@ -10,6 +10,10 @@ class UploadedFile < ApplicationRecord
 
   enum :share_type, { private: 0, internal: 1, public: 2 }, prefix: true
 
+  def to_param
+    upload_uuid
+  end
+
   private
 
   def generate_uuid

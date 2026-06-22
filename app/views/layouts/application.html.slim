@@ -30,26 +30,27 @@ html data-bs-theme=theme_preference
             h1 = "FileShare"
 
           ul.navbar-nav.me-0.mb-2.mb-lg-0.align-items-center
-            li.nav-item.dropdown 
-              a.nav-link.dropdown-toggle href="#" role="button" data-bs-toggle="dropdown"
-                => current_user.name
-              ul.dropdown-menu.dropdown-menu-start.m-0 
-                li
-                  = button_to theme_preference_path, method: :patch, params: { theme: next_theme_preference }, class: "dropdown-item", form: { data: { turbo: false } } do
-                    - if theme_preference == "dark"
-                      = icon("sun-fill")
+            - if logged_in?
+              li.nav-item.dropdown
+                a.nav-link.dropdown-toggle href="#" role="button" data-bs-toggle="dropdown"
+                  => current_user.name
+                ul.dropdown-menu.dropdown-menu-start.m-0
+                  li
+                    = button_to theme_preference_path, method: :patch, params: { theme: next_theme_preference }, class: "dropdown-item", form: { data: { turbo: false } } do
+                      - if theme_preference == "dark"
+                        = icon("sun-fill")
+                        ' &nbsp;
+                        = t("general.theme.switch_to_light")
+                      - else
+                        = icon("moon-stars-fill")
+                        ' &nbsp;
+                        = t("general.theme.switch_to_dark")
+                  li.dropdown-divider
+                  li
+                    = button_to logout_path, method: :delete, class: 'dropdown-item' do
+                      = icon('box-arrow-right')
                       ' &nbsp;
-                      = t("general.theme.switch_to_light")
-                    - else
-                      = icon("moon-stars-fill")
-                      ' &nbsp;
-                      = t("general.theme.switch_to_dark")
-                li.dropdown-divider
-                li
-                  = button_to logout_path, method: :delete, class: 'dropdown-item' do
-                    = icon('box-arrow-right')
-                    ' &nbsp;
-                    = t('general.sign_out')
+                      = t('general.sign_out')
 
     .px-4.pb-5
       = yield

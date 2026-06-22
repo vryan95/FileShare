@@ -1,0 +1,32 @@
+= title t('.title')
+
+= component :card_deck do |deck|
+  = deck.with_card do |card|
+    = card.with_header do
+      h2.h5.mb-0 = @uploaded_file.filename
+    = card.with_body do
+      dl.row.mb-0
+        dt.col-sm-3 = t('.filename')
+        dd.col-sm-9 = @uploaded_file.filename
+
+        dt.col-sm-3 = t('.owner')
+        dd.col-sm-9 = @uploaded_file.user.name
+
+        dt.col-sm-3 = t('.share_type')
+        dd.col-sm-9 = t("share_types.#{@uploaded_file.share_type}")
+
+        dt.col-sm-3 = t('.file_size')
+        dd.col-sm-9 = number_to_human_size(@uploaded_file.file_size)
+
+        dt.col-sm-3 = t('.content_type')
+        dd.col-sm-9 = @uploaded_file.content_type
+
+        dt.col-sm-3 = t('.expires_at')
+        dd.col-sm-9 = l(@uploaded_file.expires_at.to_date, format: :slash)
+
+      .d-flex.gap-2.mt-3
+        = link_to t('.download'), rails_blob_path(@uploaded_file.file, disposition: 'attachment'), class: 'btn btn-primary'
+        = link_to t('.open'), rails_blob_path(@uploaded_file.file, disposition: 'inline'), class: 'btn btn-outline-primary', target: '_blank', rel: 'noopener'
+        - if logged_in?
+          = button_tag t('.share'), type: 'button', class: 'btn btn-outline-secondary', data: { controller: 'clipboard', action: 'clipboard#copy', clipboard_target: 'button', clipboard_text_value: uploaded_file_url(@uploaded_file), clipboard_success_text_value: t('.copied'), clipboard_error_text_value: t('.copy_failed') }
+          = link_to t('.back'), uploaded_files_path, class: 'btn btn-outline-secondary'

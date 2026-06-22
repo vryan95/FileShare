@@ -12,6 +12,15 @@ class UploadedFilesController < ApplicationController
   end
 
   def show
+    @uploaded_file = UploadedFile.includes(file_attachment: :blob).find_by!(upload_uuid: params[:upload_uuid])
+
+    return if can_view_uploaded_file?(@uploaded_file)
+
+    if logged_in?
+      redirect_to uploaded_files_path, alert: t(".not_authorized")
+    else
+      redirect_to login_path, alert: t(".login_required")
+    end
   end
 
   def create
@@ -71,5 +80,12 @@ class UploadedFilesController < ApplicationController
 
   def default_expires_at
     2.days.from_now.end_of_day
+  end
+
+  def can_view_uploaded_file?(uploaded_file)
+    return true if uploaded_file.share_type_public?
+    return false unless logged_in?
+
+    uploaded_file.share_type_internal? || uploaded_file.user_id == current_user.id
   end
 end

@@ -20,5 +20,5 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy", as: :logout
   patch "/theme_preference", to: "theme_preferences#update", as: :theme_preference
 
-  resources :uploaded_files
+  resources :uploaded_files, param: :upload_uuid
 end
