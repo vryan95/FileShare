@@ -1,6 +1,8 @@
 class UploadedFile < ApplicationRecord
   has_one_attached :file
 
+  belongs_to :user
+
   validates :file, presence: true
   validates :filename, :content_type, :file_size, :expires_at, presence: true
 

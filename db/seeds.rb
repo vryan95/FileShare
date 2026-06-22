@@ -8,6 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-UploadedFile.find_or_create_by!(filename: "Example File", content_type: "text/plain", file_size: 1234, expires_at: 1.week.from_now, share_type: :public)
-UploadedFile.find_or_create_by!(filename: "Example File 2", content_type: "text/plain", file_size: 1234, expires_at: 1.week.from_now, share_type: :public)
-UploadedFile.find_or_create_by!(filename: "Example File 3", content_type: "text/plain", file_size: 1234, expires_at: 1.week.from_now, share_type: :public)
+# UploadedFile.find_or_create_by!(filename: "Example File", content_type: "text/plain", file_size: 1234, expires_at: 1.week.from_now, share_type: :public)
+# UploadedFile.find_or_create_by!(filename: "Example File 2", content_type: "text/plain", file_size: 1234, expires_at: 1.week.from_now, share_type: :public)
+# UploadedFile.find_or_create_by!(filename: "Example File 3", content_type: "text/plain", file_size: 1234, expires_at: 1.week.from_now, share_type: :public)

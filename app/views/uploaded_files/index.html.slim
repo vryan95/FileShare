@@ -22,17 +22,34 @@
                 - @uploaded_files.each do |file|
                   tr
                     td = file.filename
-                    td = file.file_size
+                    td = number_to_human_size(file.file_size)
                     td = t("share_types.#{file.share_type}")
                     td = l(file.expires_at.to_date, format: :slash)
                     td.text-center
                       = link_to icon('eye'), uploaded_file_path(file), title: t('.view'), class: "btn btn-sm btn-outline-primary"
                       = link_to icon('trash'), uploaded_file_path(file), method: :delete, data: { confirm: t('.confirm_delete') }, title: t('.delete'), class: "btn btn-sm btn-outline-danger"
         #shared_files_tab.tab-pane.fadeIn role="tabpanel"
-          = "hello shared"
+          .table-responsive
+            table.table 
+              thead
+                tr
+                  th = t('.filename')
+                  th = t('.size')
+                  th = t('.owner')
+                  th = t('.expires_at')
+                  th.text-center = t('.actions')
+              tbody
+                - @shared_files.each do |file|
+                  tr
+                    td = file.filename
+                    td = number_to_human_size(file.file_size)
+                    td = file.user.name
+                    td = l(file.expires_at.to_date, format: :slash)
+                    td.text-center
+                      = link_to icon('eye'), uploaded_file_path(file), title: t('.view'), class: "btn btn-sm btn-outline-primary"
 
 #uploadFileModal.modal.fade tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true"
-  .modal-dialog.modal-dialog-centered
+  .modal-dialog.modal-xl.modal-dialog-centered.upload-file-modal__dialog
     .modal-content
       .modal-header
         h2#uploadFileModalLabel.modal-title.fs-5 = t(".upload_modal_title")

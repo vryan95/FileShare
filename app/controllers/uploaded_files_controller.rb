@@ -4,9 +4,11 @@ class UploadedFilesController < ApplicationController
   def index
     @new_file = UploadedFile.new(
       expires_at: default_expires_at,
-      share_type: :private
+      share_type: :private,
+      user: current_user
     )
-    @uploaded_files = UploadedFile.all
+    @uploaded_files = current_user.uploaded_files.order(created_at: :desc)
+    @shared_files = UploadedFile.share_type_public.or(UploadedFile.share_type_internal).order(created_at: :desc)
   end
 
   def show
@@ -16,7 +18,8 @@ class UploadedFilesController < ApplicationController
     attributes = uploaded_file_params
     @uploaded_file = UploadedFile.new(
       expires_at: expires_at_param(attributes[:expires_at]),
-      share_type: share_type_param(attributes[:share_type])
+      share_type: share_type_param(attributes[:share_type]),
+      user: current_user
     )
 
     if attributes[:file].blank?
