@@ -3,10 +3,15 @@
 require "test_helper"
 
 class NoRecordsComponentTest < ViewComponent::TestCase
-  def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(NoRecordsComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  def test_renders_no_records_container
+    render_inline(NoRecordsComponent.new)
+
+    assert_selector ".no-records"
+  end
+
+  def test_does_not_render_when_disabled
+    render_inline(NoRecordsComponent.new(render: false))
+
+    assert_no_selector ".no-records"
   end
 end
