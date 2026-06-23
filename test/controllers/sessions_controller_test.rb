@@ -2,17 +2,26 @@ require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get sessions_new_url
+    get login_url
     assert_response :success
   end
 
-  test "should get create" do
-    get sessions_create_url
-    assert_response :success
+  test "should route omniauth callback to create" do
+    assert_routing(
+      { method: "get", path: "/auth/entra_id/callback" },
+      { controller: "sessions", action: "create", provider: "entra_id" }
+    )
+
+    assert_routing(
+      { method: "post", path: "/auth/entra_id/callback" },
+      { controller: "sessions", action: "create", provider: "entra_id" }
+    )
   end
 
-  test "should get destroy" do
-    get sessions_destroy_url
-    assert_response :success
+  test "should destroy session" do
+    delete logout_url
+
+    assert_redirected_to root_path
+    assert_equal "Logged out successfully.", flash[:notice]
   end
 end
