@@ -20,14 +20,19 @@
                   th.text-center = t('.actions')
               tbody
                 - @uploaded_files.each do |file|
+                  - edit_modal_id = "editFileModal-#{file.upload_uuid}"
                   tr
                     td = file.filename
                     td = number_to_human_size(file.file_size)
                     td = t("share_types.#{file.share_type}")
                     td = l(file.expires_at.to_date, format: :slash)
                     td.text-center
-                      = link_to icon('eye'), uploaded_file_path(file), title: t('.view'), class: "btn btn-sm btn-outline-primary"
-                      = link_to icon('trash'), uploaded_file_path(file), method: :delete, data: { confirm: t('.confirm_delete') }, title: t('.delete'), class: "btn btn-sm btn-outline-danger"
+                      = link_to icon('eye'), uploaded_file_path(file), title: t('.view'), class: "btn btn-sm btn-outline-primary me-2"
+                      = button_tag type: "button", class: "btn btn-sm btn-outline-secondary me-2", title: t(".edit"), data: { bs_toggle: "modal", bs_target: "##{edit_modal_id}" } do
+                        = icon("pencil-square")
+                      = link_to icon('trash'), uploaded_file_path(file), data: { turbo_method: :delete, turbo_confirm: t('.confirm_delete') }, title: t('.delete'), class: "btn btn-sm btn-outline-danger"
+          - @uploaded_files.each do |file|
+            = component :edit_upload, uploaded_file: file
         #shared_files_tab.tab-pane.fadeIn role="tabpanel"
           .table-responsive
             table.table 

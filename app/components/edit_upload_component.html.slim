@@ -1,0 +1,20 @@
+.modal.fade id=modal_id tabindex="-1" aria-hidden="true"
+	.modal-dialog.modal-dialog-centered
+		.modal-content
+			= form_with model: uploaded_file, url: uploaded_file_path(uploaded_file), method: :patch, local: true do |f|
+				.modal-header
+					h2.modal-title.fs-5 = t("uploaded_files.index.edit_modal_title")
+					button.btn-close type="button" data-bs-dismiss="modal" aria-label=t("uploaded_files.index.close")
+				.modal-body
+					.mb-3
+						= f.label :share_type, t("uploaded_files.index.share_type"), class: "form-label"
+						= f.select :share_type, share_type_options, {}, class: "form-select"
+					.mb-0
+						= f.label :expires_at, t("uploaded_files.index.expires_at"), class: "form-label"
+						= f.text_field :expires_at,
+							value: expires_at_value,
+							class: "form-control",
+							placeholder: t("upload_dropzone_component.expires_at_placeholder")
+				.modal-footer
+					= button_tag t("uploaded_files.index.close"), type: "button", class: "btn btn-outline-secondary", data: { bs_dismiss: "modal" }
+					= f.button t("uploaded_files.index.save"), type: :submit, class: "btn btn-primary"

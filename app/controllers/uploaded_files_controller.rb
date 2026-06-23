@@ -52,13 +52,30 @@ class UploadedFilesController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
+    @uploaded_file = current_user.uploaded_files.find_by!(upload_uuid: params[:upload_uuid])
+    attributes = uploaded_file_params
+
+    @uploaded_file.assign_attributes(
+      share_type: share_type_param(attributes[:share_type], fallback: @uploaded_file.share_type),
+      expires_at: expires_at_param(attributes[:expires_at], fallback: @uploaded_file.expires_at)
+    )
+
+    if @uploaded_file.save
+      redirect_to uploaded_files_path, notice: t(".updated")
+    else
+      redirect_to uploaded_files_path, alert: @uploaded_file.errors.full_messages.to_sentence
+    end
   end
 
   def destroy
+    @uploaded_file = current_user.uploaded_files.find_by!(upload_uuid: params[:upload_uuid])
+
+    if @uploaded_file.destroy
+      redirect_to uploaded_files_path, notice: t(".destroyed")
+    else
+      redirect_to uploaded_files_path, alert: @uploaded_file.errors.full_messages.to_sentence
+    end
   end
 
   private
@@ -67,15 +84,15 @@ class UploadedFilesController < ApplicationController
     params.require(:uploaded_file).permit(:file, :share_type, :expires_at)
   end
 
-  def share_type_param(value)
+  def share_type_param(value, fallback: "private")
     share_type = value.to_s
-    UploadedFile.share_types.key?(share_type) ? share_type : "private"
+    UploadedFile.share_types.key?(share_type) ? share_type : fallback
   end
 
-  def expires_at_param(value)
+  def expires_at_param(value, fallback: default_expires_at)
     Date.strptime(value.to_s, "%d/%m/%Y").in_time_zone.end_of_day
   rescue Date::Error
-    default_expires_at
+    fallback
   end
 
   def default_expires_at
