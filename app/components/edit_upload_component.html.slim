@@ -14,7 +14,10 @@
 						= f.text_field :expires_at,
 							value: expires_at_value,
 							class: "form-control",
-							placeholder: t("upload_dropzone_component.expires_at_placeholder")
+							placeholder: t("upload_dropzone_component.expires_at_placeholder"),
+							autocomplete: "off",
+							inputmode: "numeric",
+							data: { controller: "date-picker" }
 				.modal-footer
 					= button_tag t("uploaded_files.index.close"), type: "button", class: "btn btn-outline-secondary", data: { bs_dismiss: "modal" }
 					= f.button t("uploaded_files.index.save"), type: :submit, class: "btn btn-primary"
