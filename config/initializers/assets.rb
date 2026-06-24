@@ -10,4 +10,5 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules/bootstrap
 Rails.application.config.assets.paths << Rails.root.join("node_modules/flatpickr/dist")
 Rails.application.config.assets.precompile << "bootstrap.bundle.min.js"
 Rails.application.config.assets.precompile << "flatpickr.min.css"
+Rails.application.config.assets.precompile << "themes/dark.css"
 Rails.application.config.assets.precompile << "flatpickr.min.js"

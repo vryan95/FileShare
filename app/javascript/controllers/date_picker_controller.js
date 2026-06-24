@@ -12,9 +12,26 @@ export default class extends Controller {
       dateFormat: this.dateFormatValue,
       disableMobile: true
     })
+
+    this.applyTheme()
+    this.themeObserver = new MutationObserver(() => this.applyTheme())
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-bs-theme"]
+    })
   }
 
   disconnect() {
+    this.themeObserver?.disconnect()
     this.picker?.destroy()
+  }
+
+  applyTheme() {
+    const darkThemeEnabled = document.documentElement.dataset.bsTheme === "dark"
+    const darkThemeStylesheet = document.getElementById("flatpickr-dark-theme")
+
+    if (darkThemeStylesheet) {
+      darkThemeStylesheet.disabled = !darkThemeEnabled
+    }
   }
 }
