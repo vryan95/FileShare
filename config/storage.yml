@@ -5,12 +5,11 @@ test:
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
-
 azure:
-  service: AzureStorage
-  storage_account_name: <%= Rails.application.credentials.dig(:azure_storage, :storage_account_name) || ENV["AZURE_STORAGE_ACCOUNT_NAME"] %>
-  storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) || ENV["AZURE_STORAGE_ACCESS_KEY"] %>
-  container: <%= Rails.application.credentials.dig(:azure_storage, :container) || ENV["AZURE_STORAGE_CONTAINER"] %>
+  service: AzureBlob
+  storage_account_name: <%= ENV.fetch("AZ_STORAGE_ACCOUNT", "") %>
+  storage_access_key: <%= ENV.fetch("AZ_STORAGE_ACCESS_KEY", "") %>
+  container: fileshare
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
