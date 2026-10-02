@@ -1,5 +1,3 @@
-require "azure_blob"
-
 # Where uploads are stored, chosen by an admin so installs (e.g. through ONCE) don't need environment variables.
 # Each blob remembers its service, so switching only affects new uploads; existing files stay where they are.
 class StorageSetting < ApplicationRecord
