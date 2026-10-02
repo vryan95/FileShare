@@ -3,13 +3,80 @@ en:
   date:
     formats:
       slash: "%d/%m/%Y"
+  activerecord:
+    attributes:
+      entra_setting:
+        client_id: "Application (client) ID"
+        client_secret: "Client secret"
+        tenant_id: "Directory (tenant) ID"
+      storage_setting:
+        azure_storage_account_name: "Storage account name"
+        azure_storage_access_key: "Access key"
+        azure_container: "Container"
+    errors:
+      models:
+        storage_setting:
+          azure_unreachable: "Could not connect to Azure Blob Storage. Check the account name and access key."
+          attributes:
+            azure_container:
+              not_found: "doesn't exist in this storage account"
+        entra_setting:
+          attributes:
+            tenant_id:
+              shared_tenant: "must be your organization's tenant ID, not a shared tenant"
   general:
+    admin_required: "Only admins can do that."
+    entra_settings: "Microsoft sign-in"
+    storage_settings: "Storage"
     sign_out: "Sign out"
     theme:
       switch_to_dark: "Dark"
       switch_to_light: "Light"
       updated: "Theme updated."
       invalid: "Invalid theme selection."
+  sessions:
+    new:
+      title: "Sign in"
+      email: "Email"
+      password: "Password"
+      submit: "Sign in"
+      or: "or"
+      entra: "Sign in with Microsoft"
+    authenticate:
+      invalid: "Invalid email or password."
+      rate_limited: "Too many sign-in attempts. Try again in a few minutes."
+  setups:
+    new:
+      title: "Set up FileShare"
+      intro: "Create the first account. It will be the administrator."
+      password_hint: "At least %{count} characters."
+      submit: "Create account"
+    create:
+      created: "Welcome to FileShare!"
+  entra_settings:
+    edit:
+      title: "Microsoft sign-in"
+      intro: "Let people in your organization sign in with Microsoft Entra ID. Register an app in the Entra admin center and enter its details below."
+      callback_url: "Redirect URI to register:"
+      tenant_id_hint: "Only accounts from this tenant can sign in."
+      client_secret_hint: "Leave blank to keep the current secret."
+      submit: "Save"
+    update:
+      updated: "Microsoft sign-in settings saved."
+  storage_settings:
+    edit:
+      title: "Storage"
+      intro: "Choose where new uploads are stored. Existing files stay where they were uploaded, so switching never breaks them."
+      services:
+        local: "Local disk (included in backups)"
+        azure: "Azure Blob Storage"
+      service_hint: "Applies to new uploads only."
+      azure: "Azure Blob Storage"
+      azure_hint: "In the Azure portal, open the storage account and go to Security + networking → Access keys. The container must already exist, and its CORS settings must allow PUT requests from this site."
+      access_key_keep_hint: "Leave blank to keep the current access key."
+      submit: "Save"
+    update:
+      updated: "Storage settings saved."
   upload_dropzone_component:
     expires_at: "Expires at"
     expires_at_placeholder: "dd/MM/yyyy"

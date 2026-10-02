@@ -12,13 +12,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "uploaded_files#index"
 
+  # First-run setup (creates the first admin account)
+  resource :setup, only: [ :new, :create ]
+
   # Authentication routes
   get "/login", to: "sessions#new", as: :login
+  post "/login", to: "sessions#authenticate"
   get "/auth/:provider/callback", to: "sessions#create"
   post "/auth/:provider/callback", to: "sessions#create"
   get "/auth/failure", to: "sessions#failure"
   delete "/logout", to: "sessions#destroy", as: :logout
   patch "/theme_preference", to: "theme_preferences#update", as: :theme_preference
+
+  resource :entra_setting, only: [ :edit, :update ]
+  resource :storage_setting, only: [ :edit, :update ]
 
   resources :uploaded_files, param: :upload_uuid
 end

@@ -1,0 +1,35 @@
+= title t(".title")
+
+= component :card_deck do |c|
+  = c.with_card klass: "col-12 col-lg-8" do |card|
+    = card.with_header
+      = t(".title")
+    = card.with_body do
+      p = t(".intro")
+
+      = render "shared/form_errors", record: @storage_setting
+
+      = form_with model: @storage_setting, url: storage_setting_path, method: :patch, data: { controller: "storage-service" } do |f|
+        .mb-3
+          - StorageSetting::SERVICES.each do |service|
+            .form-check
+              = f.radio_button :service, service, class: "form-check-input", data: { action: "storage-service#toggle" }
+              = f.label :service, t(".services.#{service}"), value: service, class: "form-check-label"
+          .form-text = t(".service_hint")
+
+        fieldset.border.rounded.p-3.mb-3 disabled=!@storage_setting.azure? data-storage-service-target="azureFields"
+          legend.fs-6.float-none.w-auto.px-2.mb-0 = t(".azure")
+          p.form-text.mt-0 = t(".azure_hint")
+          .mb-3
+            = f.label :azure_storage_account_name, class: "form-label"
+            = f.text_field :azure_storage_account_name, class: "form-control", autocomplete: "off"
+          .mb-3
+            = f.label :azure_storage_access_key, class: "form-label"
+            = f.password_field :azure_storage_access_key, value: nil, class: "form-control", autocomplete: "off"
+            - if @storage_setting.persisted? && @storage_setting.azure_storage_access_key.present?
+              .form-text = t(".access_key_keep_hint")
+          .mb-0
+            = f.label :azure_container, class: "form-label"
+            = f.text_field :azure_container, class: "form-control", autocomplete: "off"
+
+        = f.submit t(".submit"), class: "btn btn-primary"

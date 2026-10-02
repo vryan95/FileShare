@@ -1,12 +1,6 @@
+# Entra ID settings are read per request from EntraSetting (saved by an admin, or ENTRA_* env vars).
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider(
-    :entra_id,
-    {
-      client_id:     ENV["ENTRA_CLIENT_ID"],
-      client_secret: ENV["ENTRA_CLIENT_SECRET"],
-      tenant_id:     ENV.fetch("ENTRA_TENANT_ID", "common")
-    }
-  )
+  provider :entra_id, EntraSetting::TenantProvider
 end
 
 # Handle OmniAuth failure

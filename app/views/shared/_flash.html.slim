@@ -1,0 +1,5 @@
+- { notice: "success", alert: "danger" }.each do |type, style|
+  - if flash[type].present?
+    .alert.alert-dismissible.fade.show class="alert-#{style}" role="alert"
+      = flash[type]
+      button.btn-close type="button" data-bs-dismiss="alert" aria-label="Close"

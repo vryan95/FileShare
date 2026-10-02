@@ -22,13 +22,36 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
-  test "requires provider uid and email" do
-    user = User.new(name: "No Provider")
+  test "requires uid and email for sso users" do
+    user = User.new(name: "No Uid", provider: "entra_id")
 
     assert_not user.valid?
-    assert_includes user.errors[:provider], "can't be blank"
     assert_includes user.errors[:uid], "can't be blank"
     assert_includes user.errors[:email], "can't be blank"
+    assert_empty user.errors[:password]
+  end
+
+  test "requires a password for users without a provider" do
+    user = User.new(name: "No Password", email: "nopassword@example.com")
+
+    assert_not user.valid?
+    assert_includes user.errors[:password], "can't be blank"
+  end
+
+  test "requires a long enough, confirmed password" do
+    user = User.new(name: "Short", email: "short@example.com", password: "short", password_confirmation: "different")
+
+    assert_not user.valid?
+    assert_includes user.errors[:password], "is too short (minimum is #{User::PASSWORD_MINIMUM_LENGTH} characters)"
+    assert_includes user.errors[:password_confirmation], "doesn't match Password"
+  end
+
+  test "requires unique emails for password users" do
+    User.create!(name: "First", email: "taken@example.com", password: "correct horse battery")
+    user = User.new(name: "Second", email: " Taken@Example.com ", password: "correct horse battery")
+
+    assert_not user.valid?
+    assert_includes user.errors[:email], "has already been taken"
   end
 
   test "validates theme_preference inclusion" do

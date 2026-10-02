@@ -21,17 +21,19 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
-  # Store uploaded files in Azure Blob Storage (see config/storage.yml for options).
-  config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", "azure").to_sym
+  # Store uploaded files on the local disk by default. Admins can switch to Azure Blob Storage on the
+  # storage settings page, which overrides this (see StorageSetting and config/storage.yml).
+  config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", "local").to_sym
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  # config.assume_ssl = true
+  # ONCE sets DISABLE_SSL when it serves the app over plain HTTP.
+  config.assume_ssl = ENV["DISABLE_SSL"].blank?
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = ENV["DISABLE_SSL"].blank?
 
   # Skip http-to-https redirect for the default health check endpoint.
-  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+  config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]

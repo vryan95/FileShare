@@ -5,11 +5,10 @@ test:
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
+# Account, key and container come from the storage settings page, or AZ_STORAGE_ACCOUNT,
+# AZ_STORAGE_ACCESS_KEY and AZ_STORAGE_CONTAINER (default "fileshare"). See StorageSetting.
 azure:
-  service: AzureBlob
-  storage_account_name: <%= ENV.fetch("AZ_STORAGE_ACCOUNT", "") %>
-  storage_access_key: <%= ENV.fetch("AZ_STORAGE_ACCESS_KEY", "") %>
-  container: fileshare
+  service: SettingsAzureBlob
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

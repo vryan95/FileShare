@@ -1,0 +1,18 @@
+= title t(".title")
+
+.container.py-5 style="max-width: 420px;"
+  h1.h3.mb-4.text-center = t(".title")
+  = render "shared/flash"
+
+  = form_with url: login_path, data: { turbo: false } do |f|
+    .mb-3
+      = f.label :email, t(".email"), class: "form-label"
+      = f.email_field :email, class: "form-control", required: true, autofocus: true, autocomplete: "username"
+    .mb-3
+      = f.label :password, t(".password"), class: "form-label"
+      = f.password_field :password, class: "form-control", required: true, autocomplete: "current-password"
+    = f.submit t(".submit"), class: "btn btn-primary w-100"
+
+  - if @entra_configured
+    .text-center.text-body-secondary.my-3 = t(".or")
+    = button_to t(".entra"), "/auth/entra_id", method: :post, data: { turbo: false }, class: "btn btn-outline-primary w-100"

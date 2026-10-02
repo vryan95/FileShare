@@ -1,0 +1,22 @@
+= title t(".title")
+
+.container.py-5 style="max-width: 420px;"
+  h1.h3.mb-2.text-center = t(".title")
+  p.text-body-secondary.text-center.mb-4 = t(".intro")
+  = render "shared/form_errors", record: @user
+
+  = form_with model: @user, url: setup_path, data: { turbo: false } do |f|
+    .mb-3
+      = f.label :name, class: "form-label"
+      = f.text_field :name, class: "form-control", required: true, autofocus: true, autocomplete: "name"
+    .mb-3
+      = f.label :email, class: "form-label"
+      = f.email_field :email, class: "form-control", required: true, autocomplete: "username"
+    .mb-3
+      = f.label :password, class: "form-label"
+      = f.password_field :password, class: "form-control", required: true, minlength: User::PASSWORD_MINIMUM_LENGTH, autocomplete: "new-password"
+      .form-text = t(".password_hint", count: User::PASSWORD_MINIMUM_LENGTH)
+    .mb-3
+      = f.label :password_confirmation, class: "form-label"
+      = f.password_field :password_confirmation, class: "form-control", required: true, autocomplete: "new-password"
+    = f.submit t(".submit"), class: "btn btn-primary w-100"

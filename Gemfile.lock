@@ -86,6 +86,7 @@ GEM
       cgi
       rexml
     base64 (0.3.0)
+    bcrypt (3.1.22)
     bcrypt_pbkdf (1.1.2)
     bigdecimal (4.1.2)
     bindex (0.8.1)
@@ -453,6 +454,7 @@ PLATFORMS
 
 DEPENDENCIES
   azure-blob
+  bcrypt (~> 3.1.7)
   bootsnap
   brakeman
   bundler-audit
@@ -504,6 +506,7 @@ CHECKSUMS
   auth-sanitizer (0.2.3) sha256=db10aac92cfbe4c64ab637eebcbe1d67395d1694798041362173370f59933e3c
   azure-blob (0.8.0) sha256=5c8d50e5c8b4fa9228f6a8d6bf003aba9f33d03c15f525235adeca8ad7879c10
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
+  bcrypt (3.1.22)
   bcrypt_pbkdf (1.1.2) sha256=c2414c23ce66869b3eb9f643d6a3374d8322dfb5078125c82792304c10b94cf6
   bigdecimal (4.1.2) sha256=53d217666027eab4280346fba98e7d5b66baaae1b9c3c1c0ffe89d48188a3fbd
   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e

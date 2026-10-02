@@ -5,9 +5,20 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  before_action :require_setup
+
   helper_method :current_user, :logged_in?, :theme_preference, :next_theme_preference
 
   private
+
+  def require_setup
+    redirect_to new_setup_path unless User.exists?
+  end
+
+  def start_session_for(user)
+    reset_session
+    session[:user_id] = user.id
+  end
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
@@ -29,5 +40,9 @@ class ApplicationController < ActionController::Base
     unless logged_in?
       redirect_to login_path, alert: "You must be logged in to access this page."
     end
+  end
+
+  def require_admin
+    redirect_to root_path, alert: t("general.admin_required") unless current_user&.admin?
   end
 end

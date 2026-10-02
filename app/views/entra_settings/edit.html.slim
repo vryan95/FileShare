@@ -1,0 +1,28 @@
+= title t(".title")
+
+= component :card_deck do |c|
+  = c.with_card klass: "col-12 col-lg-8" do |card|
+    = card.with_header
+      = t(".title")
+    = card.with_body do
+      p = t(".intro")
+      p
+        => t(".callback_url")
+        code = "#{request.base_url}/auth/entra_id/callback"
+
+      = render "shared/form_errors", record: @entra_setting
+
+      = form_with model: @entra_setting, url: entra_setting_path, method: :patch do |f|
+        .mb-3
+          = f.label :tenant_id, class: "form-label"
+          = f.text_field :tenant_id, class: "form-control", required: true
+          .form-text = t(".tenant_id_hint")
+        .mb-3
+          = f.label :client_id, class: "form-label"
+          = f.text_field :client_id, class: "form-control", required: true
+        .mb-3
+          = f.label :client_secret, class: "form-label"
+          = f.password_field :client_secret, value: nil, class: "form-control", required: @entra_setting.new_record?, autocomplete: "off"
+          - if @entra_setting.persisted?
+            .form-text = t(".client_secret_hint")
+        = f.submit t(".submit"), class: "btn btn-primary"
